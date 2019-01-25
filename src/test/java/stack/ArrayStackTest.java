@@ -3,8 +3,9 @@ package stack;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import java.util.Scanner;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ArrayStackTest
 {
@@ -13,7 +14,7 @@ class ArrayStackTest
     @BeforeEach
     public void initializeArrayStack()
     {
-        stringArrayStack = new ArrayStack<String>(10);
+        stringArrayStack = new ArrayStack<>(3);
     }
 
     @Test
@@ -21,8 +22,9 @@ class ArrayStackTest
     {
         stringArrayStack.push("Amit");
         stringArrayStack.push("Kohli");
+        stringArrayStack.push("King");
 
-        assertEquals("Amit, Kohli, ",stringArrayStack.toString());
+        assertEquals("Amit, Kohli, King, ", stringArrayStack.toString());
     }
 
     @Test
@@ -31,7 +33,7 @@ class ArrayStackTest
         testPushOperation();
         stringArrayStack.pop();
 
-        assertEquals("Amit, ", stringArrayStack.toString());
+        assertEquals("Amit, Kohli, ", stringArrayStack.toString());
     }
 
     @Test
@@ -39,8 +41,22 @@ class ArrayStackTest
     {
         testPushOperation();
 
-        assertEquals("Kohli", stringArrayStack.peek());
-
+        assertEquals("King", stringArrayStack.peek());
     }
 
+    @Test
+    public void testAttemptToPopFromEmptyStack()
+    {
+
+        assertEquals(null, stringArrayStack.pop());
+    }
+
+    @Test
+    public void testAttemptToPushToFullStack()
+    {
+        testPushOperation();
+        stringArrayStack.push("Sam");
+
+        assertEquals("Amit, Kohli, King, ", stringArrayStack.toString());
+    }
 }

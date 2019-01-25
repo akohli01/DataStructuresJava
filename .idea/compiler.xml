@@ -10,7 +10,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="Data Structures from Scratch" target="1.5" />
+      <module name="Data Structures from Scratch" target="8" />
     </bytecodeTargetLevel>
   </component>
 </project>

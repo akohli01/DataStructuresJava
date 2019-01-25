@@ -8,15 +8,16 @@ import org.apache.commons.lang3.ArrayUtils;
  */
 public class ArrayStack<T>
 {
+    public static final int EMPTY_STACK_VALUE = -1; // Indicates that stack is empty
+    public static final int HELPS_DETERMINE_SIZE = 1; //Helps to determine the size of stack as compared to capacity
     private T [] array; //Holds objects for stack
-    private int size = 0;   //Used to specify the # of elements that are presently in the stack
     private int top = -1;   //Maintains position of the top of the stack
 
     /**
      * Parameterized Constructor
      * @param initialCapacity the starting value for the capacity of the stack
      */
-    public ArrayStack(int initialCapacity) //Constructor
+    public ArrayStack(int initialCapacity)
     {
         this.array = (T[]) new Object[initialCapacity];
     }
@@ -30,9 +31,7 @@ public class ArrayStack<T>
         if (!isEmpty())
         {
             T poppedObject = array[top];
-            array = ArrayUtils.remove(array,top);
-            top--;
-            size--;
+            array = ArrayUtils.remove(array,top--);
             return poppedObject;
         }
         return null;
@@ -46,9 +45,7 @@ public class ArrayStack<T>
     {
         if(!isFull())
         {
-            top++;
-            size++;
-            array[top] = element;
+            array[++top] = element;
         }
     }
 
@@ -70,7 +67,7 @@ public class ArrayStack<T>
      */
     private boolean isEmpty()
     {
-        return size == 0;
+        return top == EMPTY_STACK_VALUE;
     }
 
     /**
@@ -79,7 +76,7 @@ public class ArrayStack<T>
      */
     private boolean isFull()
     {
-        return array.length == size;
+        return array.length == top + HELPS_DETERMINE_SIZE;
     }
 
     /**
@@ -96,7 +93,7 @@ public class ArrayStack<T>
             for (T element: array)
             {
                 if(element != null)
-                tempElementHolder.append(element + ", ");
+                tempElementHolder.append(element).append(", ");
             }
             return tempElementHolder.toString();
         }
